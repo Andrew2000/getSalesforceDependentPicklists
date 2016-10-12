@@ -48,7 +48,14 @@ try {
 		                                                   }
 	                                            }
 }
-	print_r($finalApplicableOptions);
+    $finalApplicableOptions = json_encode($finalApplicableOptions);
+    var_export($finalApplicableOptions);
+	
+    $search = array("\n", "\r", "\u", "\t", "\f", "\b", "/", '\'','-');
+    $replace = array("\\n", "\\r", "\\u", "\\t", "\\f", "\\b", "\/", "\'","\-");
+    $finalApplicableOptions = str_replace($search, $replace, $finalApplicableOptions);
+    
+    file_put_contents($myFile,$finalApplicableOptions);
 
 } catch (Exception $e) {
   echo $mySforceConnection->getLastRequest();
